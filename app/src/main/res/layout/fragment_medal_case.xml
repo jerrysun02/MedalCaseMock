@@ -9,19 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:ignore="Orientation">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textview_personal_records"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/personal_records"
-            style="@style/MedalCaseTheme.GreyTitle"
-            app:layout_constraintBottom_toTopOf="@id/gridview_personal_records"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/MedalCaseTheme.GreyTitle" />
 
         <com.example.medalcasemock.WrappingGridView
             android:id="@+id/gridview_personal_records"
@@ -32,12 +27,7 @@
             android:columnWidth="120dp"
             android:numColumns="2"
             android:horizontalSpacing="10dp"
-            android:verticalSpacing="24dp"
-
-            app:layout_constraintBottom_toBottomOf="@id/textview_virtual_races"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_personal_records"/>
+            android:verticalSpacing="24dp" />
 
         <TextView
             android:id="@+id/textview_virtual_races"
@@ -45,10 +35,7 @@
             android:layout_height="wrap_content"
             android:text="@string/virtual_races"
             style="@style/MedalCaseTheme.GreyTitle"
-            app:layout_constraintBottom_toTopOf="@id/gridview_virtual_races"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gridview_personal_records" />
+            app:layout_constraintBottom_toTopOf="@id/gridview_virtual_races" />
 
         <com.example.medalcasemock.WrappingGridView
             android:id="@+id/gridview_virtual_races"
@@ -60,11 +47,7 @@
             android:numColumns="2"
             android:horizontalSpacing="10dp"
             android:verticalSpacing="24dp"
-            android:stretchMode="columnWidth"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_personal_records"/>
+            android:stretchMode="columnWidth" />
 
     </LinearLayout>
 
