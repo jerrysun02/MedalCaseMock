@@ -8,8 +8,14 @@
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:textSize">14sp</item>
         <item name="android:background">@color/gray_background</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MedalCaseTheme.GreyTitle.Numbers" parent="MedalCaseTheme.GreyTitle">
+        <item name="android:textColor">@color/light_text</item>
     </style>
 
     <style name="MedalCaseTheme.ToolBarTitle">

@@ -73,8 +73,8 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
 
         if (mRecords[i].equals("Not Yet")) {
             imageView.setColorFilter(Color.argb(150, 255, 255, 255));
-            textView_title.setTextColor(Color.argb(150, 150, 150, 150));
-            textView_record.setTextColor(Color.argb(150, 150, 150, 150));
+            textView_title.setTextColor(Color.argb(120, 120, 120, 120));
+            textView_record.setTextColor(Color.argb(120, 120, 120, 120));
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {
