@@ -11,4 +11,10 @@
     <string name="fastest_10k">10K</string>
     <string name="half_marathon">Half Marathon</string>
     <string name="marathon">Marathon</string>
+    <string name="virtual_half_marathon_race">Virtual Half Marathon Race</string>
+    <string name="tokyo_hakone_ekiden_2020">Tokyo-Hakone Ekiden 2020</string>
+    <string name="virtual_10k_race">Virtual 10K Race</string>
+    <string name="hakone_ekiden">Hakone Ekiden</string>
+    <string name="mizuno_singapore_ekiden_2015">Mizuno Singapore Ekiden 2015</string>
+    <string name="virtual_5k_race">Virtual 5K Race</string>
 </resources>

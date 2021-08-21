@@ -24,12 +24,15 @@ public class MedalCaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         MedalCaseGridViewAdapter medalCaseGridViewAdapter;
+        String medalType;
 
-        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), recordIcons, recordStrings, personalRecords);
+        medalType = "personal records";
+        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), recordIcons, recordStrings, personalRecords, medalType);
         GridView gridView = view.findViewById(R.id.gridview_personal_records);
         gridView.setAdapter(medalCaseGridViewAdapter);
 
-        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), raceIcons, raceStrings, raceRecords);
+        medalType = "virtual races";
+        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), raceIcons, raceStrings, raceRecords, medalType);
         gridView = view.findViewById(R.id.gridview_virtual_races);
         gridView.setAdapter(medalCaseGridViewAdapter);
     }
@@ -53,9 +56,9 @@ public class MedalCaseFragment extends Fragment {
     };
 
     private int[] raceStrings = {
-            R.string.longest_run, R.string.highest_elevation,
-            R.string.fastest_5k, R.string.fastest_10k,
-            R.string.half_marathon, R.string.marathon
+            R.string.virtual_half_marathon_race, R.string.tokyo_hakone_ekiden_2020,
+            R.string.virtual_10k_race, R.string.hakone_ekiden,
+            R.string.mizuno_singapore_ekiden_2015, R.string.virtual_5k_race
     };
 
     private String[] personalRecords = {
