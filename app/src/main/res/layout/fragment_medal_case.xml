@@ -11,12 +11,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textview_personal_records"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/personal_records"
-            style="@style/MedalCaseTheme.GreyTitle" />
+            android:orientation="horizontal"
+            style="@style/MedalCaseTheme.GreyTitle">
+
+            <TextView
+                android:id="@+id/textview_personal_records"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_records"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/light_text"
+                android:text="4 of 6" />
+
+        </RelativeLayout>
+
 
         <com.example.medalcasemock.WrappingGridView
             android:id="@+id/gridview_personal_records"

@@ -1,6 +1,7 @@
 package com.example.medalcasemock;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +70,12 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
 
         TextView textView_record = view.findViewById(R.id.textView_record);
         textView_record.setText(mRecords[i]);
+
+        if (mRecords[i].equals("Not Yet")) {
+            imageView.setColorFilter(Color.argb(150, 255, 255, 255));
+            textView_title.setTextColor(Color.argb(150, 150, 150, 150));
+            textView_record.setTextColor(Color.argb(150, 150, 150, 150));
+        }
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

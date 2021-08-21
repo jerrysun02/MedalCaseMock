@@ -24,12 +24,14 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:textStyle="bold"
         style="@style/MedalCaseTheme.MedalText" />
 
     <TextView
         android:id="@+id/textView_record"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
         style="@style/MedalCaseTheme.MedalText" />
 
 </LinearLayout>
