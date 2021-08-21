@@ -1,7 +1,6 @@
 package com.example.medalcasemock;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,25 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MedalCaseGridViewAdapter extends BaseAdapter {
 
     private final Context mContext;
-
+    private int[] mIcons, mTitles;
+    private String[] mRecords;
 
     public MedalCaseGridViewAdapter(Context context) {
         mContext = context;
-        //Log.d("icons", "00size=*");
     }
 
-    public MedalCaseGridViewAdapter(Context context, Integer[] icons, Integer[] strings) {
-        Log.d("icons", "00size=#"+mIcons.length+ " ="+icons.length);
+    public MedalCaseGridViewAdapter(Context context, int[] icons, int[] titles, String[] records) {
         mContext = context;
         mIcons = Arrays.copyOf(icons, icons.length);
-        Log.d("icons", "00size=@"+mIcons.length+ " ="+icons.length);
-        //testNames = strings;
+        mTitles = Arrays.copyOf(titles, titles.length);
+        mRecords = Arrays.copyOf(records, records.length);
     }
 
     @Override
@@ -53,13 +50,14 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_medal_case_icon, null);
         }
 
-        ImageView imageView = (ImageView)view.findViewById(R.id.imageView_icon);
-        TextView textView = (TextView)view.findViewById(R.id.textView_test_name);
-
-
-        //Log.d("landingNew", "position="+position+" id="+wlTest.getId()+" name="+wlTest.getTestName());
+        ImageView imageView = view.findViewById(R.id.imageView_icon);
         imageView.setImageResource(mIcons[i]);
-        textView.setText(testNames[i]);
+
+        TextView textView_title = view.findViewById(R.id.textView_title);
+        textView_title.setText(mContext.getResources().getString(mTitles[i]));
+
+        TextView textView_record = view.findViewById(R.id.textView_record);
+        textView_record.setText(mRecords[i]);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,15 +67,5 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
         });
         return view;
     }
-
-    private Integer[] mIcons = {
-            R.drawable.ic_fastest_5k, R.drawable.ic_fastest_10k, R.drawable.ic_fastest_half_marathon,
-            R.drawable.ic_fastest_marathon
-    };
-
-    private String[] testNames = {
-            "Auto System", "Sensor Test", "Multitouch",
-            "Touch Screen", "Sensor Test", "Multitouch"
-    };
 
 }

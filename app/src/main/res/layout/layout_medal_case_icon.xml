@@ -13,9 +13,18 @@
         android:scaleType="centerInside"/>
 
     <TextView
-        android:id="@+id/textView_test_name"
+        android:id="@+id/textView_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/MedalCaseTheme.MedalText"
+        android:text="abc"
+        android:gravity="bottom"/>
+
+    <TextView
+        android:id="@+id/textView_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
         style="@style/MedalCaseTheme.MedalText"
         android:gravity="bottom"/>
 

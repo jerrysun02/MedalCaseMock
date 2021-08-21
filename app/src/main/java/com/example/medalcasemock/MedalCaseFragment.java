@@ -8,7 +8,6 @@ import android.widget.GridView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 public class MedalCaseFragment extends Fragment {
 
@@ -26,38 +25,46 @@ public class MedalCaseFragment extends Fragment {
 
         MedalCaseGridViewAdapter medalCaseGridViewAdapter;
 
-        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), recordIcons, recordStrings);
-
-        GridView gridView = (GridView) view.findViewById(R.id.gridview_personal_records);
+        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), recordIcons, recordStrings, personalRecords);
+        GridView gridView = view.findViewById(R.id.gridview_personal_records);
         gridView.setAdapter(medalCaseGridViewAdapter);
 
-        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), raceIcons, raceStrings);
-        gridView = (GridView) view.findViewById(R.id.gridview_virtual_races);
+        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), raceIcons, raceStrings, raceRecords);
+        gridView = view.findViewById(R.id.gridview_virtual_races);
         gridView.setAdapter(medalCaseGridViewAdapter);
     }
 
-    private Integer[] recordIcons = {
+    private int[] recordIcons = {
             R.drawable.ic_longest_run, R.drawable.ic_highest_elevation,
             R.drawable.ic_fastest_5k, R.drawable.ic_fastest_10k,
             R.drawable.ic_fastest_half_marathon, R.drawable.ic_fastest_marathon
     };
 
-    private Integer[] raceIcons = {
+    private int[] raceIcons = {
             R.drawable.virtual_half_marathon_race, R.drawable.tokyo_kakone_ekiden,
             R.drawable.virtual_10k_race, R.drawable.hakone_ekiden,
             R.drawable.mizuno_singapore_ekiden, R.drawable.virtual_5k_race
     };
 
-    private Integer[] recordStrings = {
+    private int[] recordStrings = {
             R.string.longest_run, R.string.highest_elevation,
             R.string.fastest_5k, R.string.fastest_10k,
             R.string.half_marathon, R.string.marathon
     };
 
-    private Integer[] raceStrings = {
+    private int[] raceStrings = {
             R.string.longest_run, R.string.highest_elevation,
             R.string.fastest_5k, R.string.fastest_10k,
             R.string.half_marathon, R.string.marathon
     };
 
+    private String[] personalRecords = {
+            "00:00", "2095ft", "00:00",
+            "00:00:00", "00:00", "Not Yet"
+    };
+
+    private String[] raceRecords = {
+            "00:00", "00:00:00", "00:00:00",
+            "00:00:00", "00:00:00", "23:07"
+    };
 }
