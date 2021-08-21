@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MedalCaseMock</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="personal_records">Personal Records</string>
+    <string name="virtual_races">Virtual Races</string>
+    <string name="achievements">Achievements</string>
+    <string name="longest_run">Longest Run</string>
+    <string name="highest_elevation">Highest Elevation</string>
+    <string name="fastest_5k">Fastest 5K</string>
+    <string name="fastest_10k">10K</string>
+    <string name="half_marathon">Half Marathon</string>
+    <string name="marathon">Marathon</string>
+</resources>
