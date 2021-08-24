@@ -11,30 +11,28 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.medalcasemock.Constants.MedalType.PERSONAL_RECORD;
 
 public class MedalCaseGridViewAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private int[] mIcons, mTitles;
-    private String[] mRecords;
-    private String mMedalType;
+    private List<Medal> mMedalList;
 
     public MedalCaseGridViewAdapter(Context context) {
         mContext = context;
     }
 
-    public MedalCaseGridViewAdapter(Context context, int[] icons, int[] titles, String[] records, String type) {
+    public MedalCaseGridViewAdapter(Context context, List<Medal> medalsList) {
         mContext = context;
-        mIcons = Arrays.copyOf(icons, icons.length);
-        mTitles = Arrays.copyOf(titles, titles.length);
-        mRecords = Arrays.copyOf(records, records.length);
-        mMedalType = type;
+        mMedalList = new ArrayList<Medal>(medalsList);
     }
 
     @Override
     public int getCount() {
-        return mIcons.length;
+        return mMedalList.size();
     }
 
     @Override
@@ -55,13 +53,15 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_medal_case_icon, null);
         }
 
+        Medal medal = mMedalList.get(i);
+
         ImageView imageView = view.findViewById(R.id.imageView_icon);
-        imageView.setImageResource(mIcons[i]);
+        imageView.setImageResource(medal.medalIcon);
 
         TextView textView_title = view.findViewById(R.id.textView_title);
-        textView_title.setText(mContext.getResources().getString(mTitles[i]));
+        textView_title.setText(medal.medalTitle);
 
-        if (mMedalType.equals("personal records")) {
+        if (medal.medalType == PERSONAL_RECORD) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -20, mContext.getResources().getDisplayMetrics());
             params.setMargins(0, height, 0, 0);
@@ -69,9 +69,9 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
         }
 
         TextView textView_record = view.findViewById(R.id.textView_record);
-        textView_record.setText(mRecords[i]);
+        textView_record.setText(medal.medalRecord);
 
-        if (mRecords[i].equals("Not Yet")) {
+        if (medal.medalRecord.equals("Not Yet")) {
             imageView.setColorFilter(Color.argb(150, 255, 255, 255));
             textView_title.setTextColor(Color.argb(120, 120, 120, 120));
             textView_record.setTextColor(Color.argb(120, 120, 120, 120));

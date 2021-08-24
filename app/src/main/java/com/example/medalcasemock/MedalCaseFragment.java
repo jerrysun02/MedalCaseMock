@@ -9,6 +9,19 @@ import android.widget.GridView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+import static com.example.medalcasemock.Constants.MedalType.PERSONAL_RECORD;
+import static com.example.medalcasemock.Constants.MedalType.VIRTUAL_RACE;
+
 public class MedalCaseFragment extends Fragment {
 
     @Override
@@ -23,51 +36,89 @@ public class MedalCaseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MedalCaseGridViewAdapter medalCaseGridViewAdapter;
-        String medalType;
+        String[] medals = new String[12];
+        medals[5] = "{\"id\":1, \"type\":\"PERSONAL_RECORD\", \"icon\":"+R.drawable.ic_longest_run+", \"title\":" + R.string.longest_run + ", \"record\":\"00:00\"}";
+        medals[11] = "{\"id\":2, \"type\":\"PERSONAL_RECORD\", \"icon\":"+R.drawable.ic_highest_elevation+", \"title\":" + R.string.highest_elevation + ", \"record\":\"2095ft\"}";
+        medals[6] = "{\"id\":3, \"type\":\"PERSONAL_RECORD\", \"icon\":"+R.drawable.ic_fastest_5k+", \"title\":" + R.string.fastest_5k + ", \"record\":\"00:00\"}";
+        medals[1] = "{\"id\":4, \"type\":\"PERSONAL_RECORD\", \"icon\":"+R.drawable.ic_fastest_10k+", \"title\":" + R.string.fastest_10k + ", \"record\":\"00:00:00\"}";
+        medals[8] = "{\"id\":5, \"type\":\"PERSONAL_RECORD\", \"icon\":"+R.drawable.ic_fastest_half_marathon+", \"title\":" + R.string.half_marathon + ", \"record\":\"00:00\"}";
+        medals[7] = "{\"id\":6, \"type\":\"PERSONAL_RECORD\", \"icon\":"+R.drawable.ic_fastest_marathon+", \"title\":" + R.string.marathon + ", \"record\":\"Not Yet\"}";
+        medals[0] = "{\"id\":7, \"type\":\"VIRTUAL_RACE\", \"icon\":"+R.drawable.virtual_half_marathon_race+", \"title\":" + R.string.virtual_half_marathon_race + ", \"record\":\"00:00\"}";
+        medals[4] = "{\"id\":8, \"type\":\"VIRTUAL_RACE\", \"icon\":"+R.drawable.tokyo_kakone_ekiden+", \"title\":" + R.string.tokyo_hakone_ekiden_2020 + ", \"record\":\"00:00:00\"}";
+        medals[9] = "{\"id\":9, \"type\":\"VIRTUAL_RACE\", \"icon\":"+R.drawable.virtual_10k_race+", \"title\":" + R.string.virtual_10k_race + ", \"record\":\"00:00:00\"}";
+        medals[2] = "{\"id\":10, \"type\":\"VIRTUAL_RACE\", \"icon\":"+R.drawable.hakone_ekiden+", \"title\":" + R.string.hakone_ekiden + ", \"record\":\"00:00:00\"}";
+        medals[10] = "{\"id\":11, \"type\":\"VIRTUAL_RACE\", \"icon\":"+R.drawable.mizuno_singapore_ekiden+", \"title\":" + R.string.mizuno_singapore_ekiden_2015 + ", \"record\":\"00:00:00\"}";
+        medals[3] = "{\"id\":12, \"type\":\"VIRTUAL_RACE\", \"icon\":"+R.drawable.virtual_5k_race+", \"title\":" + R.string.virtual_5k_race + ", \"record\":\"23:07\"}";
 
-        medalType = "personal records";
-        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), recordIcons, recordStrings, personalRecords, medalType);
-        GridView gridView = view.findViewById(R.id.gridview_personal_records);
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = new JSONArray();
+
+        for (int i = 0; i < medals.length; i++) {
+            try {
+                jsonObject = new JSONObject(medals[i]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(jsonObject); //put the medals into JSONArray
+        }
+
+        List<Medal> medalList = new ArrayList<>();
+        try {
+            medalList = getAllMedals(jsonArray);  //get the medals from JSONArray
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        GridView gridView;
+        MedalCaseGridViewAdapter medalCaseGridViewAdapter;
+
+        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), getMedals(medalList, PERSONAL_RECORD));
+        gridView = view.findViewById(R.id.gridview_personal_records);
         gridView.setAdapter(medalCaseGridViewAdapter);
 
-        medalType = "virtual races";
-        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), raceIcons, raceStrings, raceRecords, medalType);
+        medalCaseGridViewAdapter = new MedalCaseGridViewAdapter(getActivity(), getMedals(medalList, VIRTUAL_RACE));
         gridView = view.findViewById(R.id.gridview_virtual_races);
         gridView.setAdapter(medalCaseGridViewAdapter);
     }
 
-    private int[] recordIcons = {
-            R.drawable.ic_longest_run, R.drawable.ic_highest_elevation,
-            R.drawable.ic_fastest_5k, R.drawable.ic_fastest_10k,
-            R.drawable.ic_fastest_half_marathon, R.drawable.ic_fastest_marathon
-    };
+    private List<Medal> getAllMedals(JSONArray jsonArray) throws JSONException {
+        List<Medal> medalList = new ArrayList<>();
 
-    private int[] raceIcons = {
-            R.drawable.virtual_half_marathon_race, R.drawable.tokyo_kakone_ekiden,
-            R.drawable.virtual_10k_race, R.drawable.hakone_ekiden,
-            R.drawable.mizuno_singapore_ekiden, R.drawable.virtual_5k_race
-    };
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject row = jsonArray.getJSONObject(i);
+            Medal medal = new Medal();
+            medal.medalId = (int) row.get("id");
+            if (row.get("type").equals("PERSONAL_RECORD"))
+                medal.medalType = PERSONAL_RECORD;
+            else
+                medal.medalType = VIRTUAL_RACE;
+            medal.medalIcon = (int) row.get("icon");
+            medal.medalTitle = (int) row.get("title");
+            medal.medalRecord = (String) row.get("record");
+            medalList.add(medal);
+        }
 
-    private int[] recordStrings = {
-            R.string.longest_run, R.string.highest_elevation,
-            R.string.fastest_5k, R.string.fastest_10k,
-            R.string.half_marathon, R.string.marathon
-    };
+        return medalList;
+    }
 
-    private int[] raceStrings = {
-            R.string.virtual_half_marathon_race, R.string.tokyo_hakone_ekiden_2020,
-            R.string.virtual_10k_race, R.string.hakone_ekiden,
-            R.string.mizuno_singapore_ekiden_2015, R.string.virtual_5k_race
-    };
+    private List<Medal> getMedals(List<Medal> medalList, Constants.MedalType medalType) {
+        List<Medal> resultList = new ArrayList<>();
 
-    private String[] personalRecords = {
-            "00:00", "2095ft", "00:00",
-            "00:00:00", "00:00", "Not Yet"
-    };
+        Iterator itr = medalList.iterator();
+        while (itr.hasNext())
+        {
+            Medal medal = (Medal) itr.next();
+            if (medal.medalType == medalType)
+                resultList.add(medal);
+        }
 
-    private String[] raceRecords = {
-            "00:00", "00:00:00", "00:00:00",
-            "00:00:00", "00:00:00", "23:07"
-    };
+        Collections.sort(resultList, new Comparator<Medal>() { // sort the resultList by id
+            @Override
+            public int compare(Medal left, Medal right) {
+                return Integer.compare(left.medalId, right.medalId);
+            }
+        });
+
+        return resultList;
+    }
 }
