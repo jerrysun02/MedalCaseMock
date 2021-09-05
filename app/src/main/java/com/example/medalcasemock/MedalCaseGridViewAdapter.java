@@ -18,21 +18,22 @@ import static com.example.medalcasemock.Constants.MedalType.PERSONAL_RECORD;
 
 public class MedalCaseGridViewAdapter extends BaseAdapter {
 
-    private final Context mContext;
-    private List<Medal> mMedalList;
+    private Context mContext;
+    private List<MedalModel> mMedalList;
 
     public MedalCaseGridViewAdapter(Context context) {
         mContext = context;
+        mMedalList = new ArrayList<>();
     }
 
-    public MedalCaseGridViewAdapter(Context context, List<Medal> medalsList) {
+    public void addMedalList(Context context, List<MedalModel> medalList) {
         mContext = context;
-        mMedalList = new ArrayList<Medal>(medalsList);
+        mMedalList = medalList;
     }
 
     @Override
     public int getCount() {
-        return mMedalList.size();
+        return mMedalList != null ? mMedalList.size() : 0;
     }
 
     @Override
@@ -53,15 +54,15 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_medal_case_icon, null);
         }
 
-        Medal medal = mMedalList.get(i);
+        MedalModel medalModel = mMedalList.get(i);
 
         ImageView imageView = view.findViewById(R.id.imageView_icon);
-        imageView.setImageResource(medal.medalIcon);
+        imageView.setImageResource(medalModel.getMedalIcon());
 
         TextView textView_title = view.findViewById(R.id.textView_title);
-        textView_title.setText(medal.medalTitle);
+        textView_title.setText(medalModel.getMedalTitle());
 
-        if (medal.medalType == PERSONAL_RECORD) {
+        if (medalModel.getMedalType() == PERSONAL_RECORD) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -20, mContext.getResources().getDisplayMetrics());
             params.setMargins(0, height, 0, 0);
@@ -69,9 +70,9 @@ public class MedalCaseGridViewAdapter extends BaseAdapter {
         }
 
         TextView textView_record = view.findViewById(R.id.textView_record);
-        textView_record.setText(medal.medalRecord);
+        textView_record.setText(medalModel.getMedalRecord());
 
-        if (medal.medalRecord.equals("Not Yet")) {
+        if (medalModel.getMedalRecord().equals("Not Yet")) {
             imageView.setColorFilter(Color.argb(150, 255, 255, 255));
             textView_title.setTextColor(Color.argb(120, 120, 120, 120));
             textView_record.setTextColor(Color.argb(120, 120, 120, 120));
